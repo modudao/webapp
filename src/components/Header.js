@@ -58,7 +58,7 @@ const Header = () => {
             className={`modu-logo-text1 ${location.pathname === '/nft' ? 'active-link' : ''}`}
             style={{ textDecoration: 'none' }}
           >
-            맴버쉽
+            맴버십
           </Link>
           <Link
             to="/vote"
