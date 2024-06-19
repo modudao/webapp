@@ -18,7 +18,7 @@ const Header = () => {
   }, []);
 
   const connectToKlip = async () => {
-    const bappName = 'YourAppName';
+    const bappName = 'MODULAB DAPP';
     const res = await prepare.auth({ bappName });
 
     if (res.request_key) {
