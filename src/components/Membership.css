@@ -1,0 +1,106 @@
+.membership-body-text-sub {
+  width: 259px;
+
+  color: #1C140D;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 150% */
+}
+
+.membership-body-text-sub2 {
+  color: #9C784A;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  /* 150% */
+}
+
+.modu-nft-image {
+  border-radius: 12px;
+  background: lightgray 50% / cover no-repeat;
+}
+
+.membership-body-text {
+  color: #000;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 60px;
+  /* 187.5% */
+  letter-spacing: -1.584px;
+}
+
+.membership-button {
+  display: flex;
+  width: 259px;
+  height: 46px;
+  padding: 22px 17px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  border-color: transparent;
+  border-radius: 12px;
+  background: #F28F0D;
+}
+
+.membership-body-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.membership-body {
+  display: flex;
+  padding-top: 40px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.membership-body-text-sub-success {
+  width: 339px;
+
+  color: #1C140D;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 150% */
+}
+
+.membership-nft-text {
+  color: #1C140D;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 150% */
+}
+
+.membership-member-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.membership-member-body {
+  display: flex;
+  flex-wrap: wrap;
+  width: 341px;
+  gap: 4px;
+}
