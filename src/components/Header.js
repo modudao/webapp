@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { prepare, getResult } from 'klip-sdk';
+
+import logo from '../assets/logo.png';
 import './Header.css';
 
 const Header = () => {
+  const location = useLocation();
+
   const [address, setAddress] = useState(null);
   const [shortedAddress, setShortedAddress] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -43,13 +48,25 @@ const Header = () => {
   return (
     <div className='modu-header'>
       <div className='modu-logo-wrapper'>
-        <img className='modu-logo-image' style={{ width: 32, height: 32 }} src="./imgs/logo.png" />
-        <div className='modu-logo-text'>MODUDAO</div>
+        <img className='modu-logo-image' style={{ width: 32, height: 32 }} src={logo} />
+        <Link to="/" className='modu-logo-text' style={{ textDecoration: 'none' }}>MODUDAO</Link>
       </div>
       <div className='modu-menu-wrapper'>
         <div className='modu-menu-text-wrapper'>
-          <div className='modu-logo-text1'>맴버쉽</div>
-          <div className='modu-logo-text2'>투표</div>
+          <Link
+            to="/nft"
+            className={`modu-logo-text1 ${location.pathname === '/nft' ? 'active-link' : ''}`}
+            style={{ textDecoration: 'none' }}
+          >
+            맴버쉽
+          </Link>
+          <Link
+            to="/vote"
+            className={`modu-logo-text2 ${location.pathname === '/vote' ? 'active-link' : ''}`}
+            style={{ textDecoration: 'none' }}
+          >
+            투표
+          </Link>
         </div>
         <div className='modu-menu-button-wrapper'>
 

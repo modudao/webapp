@@ -1,103 +1,109 @@
 .modu-logo-text {
-    color: #000;
-    font-feature-settings: 'dlig' on;
-    font-family: 'Work Sans';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 22.5px;
-    /* 125% */
-    letter-spacing: -0.27px;
-  }
-  
-  .modu-logo-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-  }
-  
-  .modu-logo-text1 {
-    color: #1C140D;
-    font-feature-settings: 'dlig' on;
-    font-family: "Work Sans";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 21px;
-    /* 150% */
-  }
-  
-  .modu-logo-text2 {
-    color: #1C140D;
-    font-feature-settings: 'dlig' on;
-    font-family: "Work Sans";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 21px;
-    /* 150% */
-  }
-  
-  .modu-menu-text-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-  }
-  .modu-wallet-text {
-    color: #1C140D;
-    font-feature-settings: 'dlig' on;
-    font-family: "Work Sans";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 21px;
-    /* 150% */
-    letter-spacing: 0.21px;
-  }
-  
-  .modu-menu-wallet {
-    display: flex;
-    width: 90px;
-    padding: 10px 16px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    
-    border-color: transparent;
-    border-radius: 12px;
-    background: #F28F0D;
-  }
-  .modu-menu-wallet-success {
-    display: flex;
-    width: 90px;
-    padding: 10px 16px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    
-    border-color: transparent;
-    border-radius: 12px;
-    background: #ffcf90;
-  }
-  
-  .modu-menu-button-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-  }
-  
-  .modu-menu-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .modu-header {
-    display: flex;
-    height: 60px;
-    padding: 12px 20px;
-    justify-content: space-between;
-    align-items: center;
-  
-    border-bottom: 1px solid #E8EAED;
-  }
+  color: #000;
+  font-feature-settings: 'dlig' on;
+  font-family: 'Work Sans';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22.5px;
+  /* 125% */
+  letter-spacing: -0.27px;
+}
+
+.modu-logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.modu-logo-text1 {
+  color: #1C140D;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  /* 150% */
+}
+
+.modu-logo-text2 {
+  color: #1C140D;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  /* 150% */
+}
+
+.modu-menu-text-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.modu-wallet-text {
+  color: #1C140D;
+  font-feature-settings: 'dlig' on;
+  font-family: "Work Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px;
+  /* 150% */
+  letter-spacing: 0.21px;
+}
+
+.modu-menu-wallet {
+  display: flex;
+  width: 90px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  border-color: transparent;
+  border-radius: 12px;
+  background: #F28F0D;
+}
+
+.modu-menu-wallet-success {
+  display: flex;
+  width: 90px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  border-color: transparent;
+  border-radius: 12px;
+  background: #ffcf90;
+}
+
+.modu-menu-button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.modu-menu-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.modu-header {
+  display: flex;
+  height: 60px;
+  padding: 12px 20px;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid #E8EAED;
+}
+
+.active-link {
+  font-weight: bold;
+}
