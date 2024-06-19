@@ -30,7 +30,7 @@ const Header = () => {
         if (result.status === 'completed') {
           const walletAddress = result.result.klaytn_address;
           setAddress(walletAddress);
-          shortedAddress(walletAddress.slice(0, 4) + '...' + walletAddress.slice(-2));
+          setShortedAddress(walletAddress.slice(0, 4) + '...' + walletAddress.slice(-2));
           setIsConnected(true);
           // store local storage
           localStorage.setItem('klipAddress', walletAddress);
