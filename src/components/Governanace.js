@@ -5,6 +5,7 @@ function Governanace() {
   return (
     <div>
       <h1>Governanace</h1>
+      <h1>Governanace</h1>
     </div>
   );
 }
