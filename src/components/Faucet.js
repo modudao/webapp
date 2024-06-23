@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { prepare, getResult } from 'klip-sdk';
+import axios from 'axios';
 
 import smile from '../assets/smile.png';
 import './Faucet.css';
@@ -8,6 +9,29 @@ const Faucet = () => {
   const [isClaimed, setIsClaimed] = useState(false);
   const [userName, setUserName] = useState(false);
 
+  const handleInputChange = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const storedAddress = localStorage.getItem('klipAddress');
+    if (storedAddress && userName != "") {
+      const postParams = { "username": userName, "useraddress": storedAddress };
+      console.log("postParams", postParams);
+
+      axios.post('https://yskpecha3j.execute-api.ap-northeast-2.amazonaws.com/tt', postParams)
+        .then(response => {
+          console.log('Success:', response.data);
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+        });
+
+      setIsClaimed(true);
+    }
+  };
+
   return (
     <div className='faucet-body'>
       {!isClaimed ? (
@@ -15,9 +39,9 @@ const Faucet = () => {
           <div className='faucet-body-text'>닉네임을 입력하세요</div>
           <div className='faucet-body-text-sub'>모두다오에 오신걸 환영합니다! 닉네임 입력 후 KLAY를 받아가세요!</div>
           <div className='faucet-button-wrapper'>
-            <input className='faucet-button-input' type='text' placeholder='1자 이상을 입력하세요'>
+            <input className='faucet-button-input' type='text' placeholder='1자 이상을 입력하세요' onChange={handleInputChange}>
             </input>
-            <button className='faucet-button'>
+            <button className='faucet-button' onClick={handleSubmit}>
               <div className='faucet-button-text'>확인</div>
             </button>
           </div>
@@ -43,7 +67,7 @@ const Faucet = () => {
               <div className='faucet-category-text'>Contract</div>
             </div>
           </div>
-          <div className='faucet-body-text-sub'>맴버십 페이지에서 맴버쉽을 획득해보세요!</div>
+          <div className='faucet-body-text-sub'>맴버십 페이지에서 맴버십을 획득해보세요!</div>
         </div>
       )}
     </div>
