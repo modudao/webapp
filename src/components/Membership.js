@@ -1,19 +1,98 @@
 import React, { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+import { prepare, request, getResult } from 'klip-sdk';
 import QRCode from 'qrcode.react';
 import Modal from 'react-modal';
 
-import { prepare, request, getResult } from 'klip-sdk';
-
-import nft0 from '../assets/nft0.png';
+import daolabnft from '../assets/daolabnft.png';
 import './Membership.css';
 
 function Membership() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [qrValue, setQrValue] = useState('');
   const [isMembership, setIsMembership] = useState(false);
+  const [memberMetadata, setMemberMetadata] = useState([]);
 
   const nftAddress = "0xb065C2E339Ec555aA03EA5695939708673A9bb15";
   const mintAbi = '{"constant":false,"inputs":[],"name":"mint","outputs":[],"payable":true,"stateMutability":"payable","type":"function"}';
+  const nftAbi = [{
+    "inputs": [],
+    "name": "tokenCounter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }, {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "hasPurchased",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getUsersNickname",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },];
+  const nftImagesLink = [];
+  for (let i = 0; i <= 100; i++) {
+    nftImagesLink.push(`https://raw.githubusercontent.com/modudao/images/main/members/nft${i}.png`);
+  }
+
+  useEffect(() => {
+    const provider = new ethers.JsonRpcProvider("https://public-en-cypress.klaytn.net");
+    const nftContract = new ethers.Contract(nftAddress, nftAbi, provider);
+
+    const checkMembershipStatus = async () => {
+      try {
+        const userAdderss = localStorage.getItem('klipAddress');
+        if (userAdderss == '') {
+          setIsMembership(false);
+        } else {
+          const membershipStatus = await nftContract.hasPurchased(userAdderss);
+          if (membershipStatus) {
+            setIsMembership(true);
+            const metadata = await nftContract.getUsersNickname();
+            setMemberMetadata(metadata);
+          } else {
+            setIsMembership(false);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking membership status:', error);
+      }
+    };
+
+    // 10초마다 갱신
+    const intervalId = setInterval(checkMembershipStatus, 10000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -31,7 +110,7 @@ function Membership() {
       bappName,
       to: nftAddress,
       abi: mintAbi,
-      value: '1' + '0'.repeat(18),
+      value: '10' + '0'.repeat(18),
       params: '[]',
       from: localStorage.getItem('klipAddress'),
     };
@@ -55,7 +134,7 @@ function Membership() {
     } else {
       request(request_key);
     }
-  
+
     // Step 3: Poll for the result
     // const interval = setInterval(() => {
     //   getResult(request_key, (result) => {
@@ -76,7 +155,7 @@ function Membership() {
       {!isMembership ? (
         <div className='membership-body-wrapper'>
           <div className='membership-body-text'>맴버십을 구매하세요</div>
-          <img className='modu-nft-image' style={{ width: 259, height: 259 }} src={nft0} />
+          <img className='modu-nft-image' style={{ width: 259, height: 259 }} src={daolabnft} />
           <div className='membership-body-text-sub'>2024 다오랩 2기 마무리를 기념하기 위한 NFT 카드입니다. 이 NFT는 양도가 불가능한 SBT입니다.</div>
           <div className='membership-body-text-sub2'>*가격: 10 KLAY</div>
           <button className='membership-button' onClick={mintNFT}>
@@ -85,7 +164,7 @@ function Membership() {
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
-            className="modal-content" 
+            className="modal-content"
             overlayClassName="modal-overlay"
             contentLabel="QR Code Modal"
           >
@@ -96,25 +175,15 @@ function Membership() {
       ) : (
         <div className='membership-body-wrapper'>
           <div className='membership-body-text'>맴버가 되신걸 환영합니다</div>
-          <div className='membership-body-text-sub-success'>총 24명의 맴버가 함께하고 있습니다! 거버넌스 페이지에서 투표를 진행해보세요!</div>
+          <div className='membership-body-text-sub-success'>총 {memberMetadata.length} 명의 맴버가 함께하고 있습니다! 거버넌스 페이지에서 투표를 진행해보세요!</div>
           <div className='membership-member-body'>
             {/*  */}
-            <div className='membership-member-wrapper'>
-              <img className='modu-nft-image' style={{ width: 111, height: 111 }} src={nft0} />
-              <div className='membership-nft-text'>MG12 님</div>
-            </div>
-            <div className='membership-member-wrapper'>
-              <img className='modu-nft-image' style={{ width: 111, height: 111 }} src={nft0} />
-              <div className='membership-nft-text'>MG12 님</div>
-            </div>
-            <div className='membership-member-wrapper'>
-              <img className='modu-nft-image' style={{ width: 111, height: 111 }} src={nft0} />
-              <div className='membership-nft-text'>MG12 님</div>
-            </div>
-            <div className='membership-member-wrapper'>
-              <img className='modu-nft-image' style={{ width: 111, height: 111 }} src={nft0} />
-              <div className='membership-nft-text'>MG12 님</div>
-            </div>
+            {memberMetadata.map((member, index) => (
+              <div className='membership-member-wrapper' key={index}>
+                <img className='modu-nft-image' style={{ width: 111, height: 111 }} src={nftImagesLink[index]} />
+                <div className='membership-nft-text'>{member} 님</div>
+              </div>
+            ))}
             {/*  */}
           </div>
         </div>
