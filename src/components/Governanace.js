@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { prepare, request, getResult } from 'klip-sdk';
+import { ethers } from 'ethers';
 import QRCode from 'qrcode.react';
 import Modal from 'react-modal';
 
@@ -18,14 +19,102 @@ function Governanace() {
   const [qrValue, setQrValue] = useState('');
   const [hasVotedGovernance1, setHasVotedGovernance1] = useState(false);
   const [hasVotedGovernance2, setHasVotedGovernance2] = useState(false);
+  const [voteData, setVoteData] = useState("");
+  const [voteRate, setVoteRate] = useState(0);
+  const [winImage, setWinImage] = useState([]);
 
   const nftAddress = "0xb065C2E339Ec555aA03EA5695939708673A9bb15";
   const voteAbi = '{"inputs": [{"internalType": "uint256","name": "option","type": "uint256"}],"name": "vote","outputs": [],"stateMutability": "nonpayable","type": "function"}';
+  const nftAbi = [{
+    "inputs": [],
+    "name": "hasVotedGovernance1",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "hasVotedGovernance2",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }, {
+    "inputs": [],
+    "name": "getVotes",
+    "outputs": [
+      {
+        "internalType": "uint256[4]",
+        "name": "",
+        "type": "uint256[4]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }, {
+    "inputs": [],
+    "name": "tokenCounter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },];
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
   useEffect(() => {
+    const provider = new ethers.JsonRpcProvider("https://public-en-cypress.klaytn.net");
+    const nftContract = new ethers.Contract(nftAddress, nftAbi, provider);
+
     setSelectedImage(selectedImage);
+
+    const checkVotedStatus = async () => {
+      try {
+        const userAdderss = localStorage.getItem('klipAddress');
+        if (userAdderss == '') {
+          setHasVotedGovernance1(false);
+        } else {
+          const govStatus = await nftContract.hasVotedGovernance1();
+          if (govStatus) {
+            setHasVotedGovernance1(true);
+            const data = (await nftContract.getVotes()).map(Number);
+            const maxIndex = data.indexOf(Math.max(...data));
+
+            const totalCount = Number(await nftContract.tokenCounter());
+            const sum = data.reduce((acc, curr) => acc + curr, 0);
+
+            setVoteRate(Math.round(sum / totalCount * 100));
+            setWinImage(`사진${maxIndex + 1}`);
+            setVoteData(data);
+          } else {
+            setHasVotedGovernance1(false);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking membership status:', error);
+      }
+    };
+
+    // 10초마다 갱신
+    const intervalId = setInterval(checkVotedStatus, 10000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleChange = (event) => {
@@ -53,7 +142,7 @@ function Governanace() {
     labels: ['사진1', '사진2', '사진3', '사진4'],
     datasets: [
       {
-        data: [3, 10, 7, 1],
+        data: voteData,
         backgroundColor: ['blue', 'green', 'orange', 'red'],
       },
     ],
@@ -189,9 +278,9 @@ function Governanace() {
               </div>
             ) : (
               <div className='voted-wrapper'>
-                <div className='gov-title-sub'>투표가 완료되었습니다. 사진1 으로 결정되었습니다.</div>
-                <div className='gov-title-sub2'>클립 지갑에서 다오랩 맴버쉽 NFT 사진이 바뀌었는지 확인해보세요!</div>
-                <div className='gov-title-sub3'>*투표율: 92%</div>
+                <div className='gov-title-sub'>투표가 완료되었습니다. {winImage} 로 결정되었습니다.</div>
+                <div className='gov-title-sub2'>클립 지갑에서 다오랩 맴버십 NFT 사진이 변경되었는지 확인해보세요!</div>
+                <div className='gov-title-sub3'>*투표율: {voteRate}%</div>
                 <div style={{ width: '293px', height: '293px' }}>
                   <Bar data={data} options={options} />
                 </div>
