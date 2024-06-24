@@ -16,6 +16,8 @@
  * http://api.jqueryui.com/category/ui-core/
  */
 
+/*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+
 /**
  * @license React
  * react-dom.production.min.js
