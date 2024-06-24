@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-
+import { prepare, request, getResult } from 'klip-sdk';
+import QRCode from 'qrcode.react';
+import Modal from 'react-modal';
 
 import daolabnft1 from '../assets/daolabnft1.png';
 import daolabnft2 from '../assets/daolabnft2.png';
@@ -12,8 +14,13 @@ import './Governanace.css';
 function Governanace() {
   const [selectedImage, setSelectedImage] = useState('사진1');
   const [isSelectedGovernance1, setIsSelectedGovernance1] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [qrValue, setQrValue] = useState('');
   const [hasVotedGovernance1, setHasVotedGovernance1] = useState(false);
   const [hasVotedGovernance2, setHasVotedGovernance2] = useState(false);
+
+  const nftAddress = "0xb065C2E339Ec555aA03EA5695939708673A9bb15";
+  const voteAbi = '{"inputs": [{"internalType": "uint256","name": "option","type": "uint256"}],"name": "vote","outputs": [],"stateMutability": "nonpayable","type": "function"}';
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -34,6 +41,14 @@ function Governanace() {
     setIsSelectedGovernance1(false);
   };
 
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   const data = {
     labels: ['사진1', '사진2', '사진3', '사진4'],
     datasets: [
@@ -51,6 +66,65 @@ function Governanace() {
       title: { display: true, text: '거버넌스1 투표 결과', },
     },
     maintainAspectRatio: false,
+  };
+
+  const voteImage = async () => {
+    const bappName = 'MODULAB DAPP';
+
+    let params;
+    if (selectedImage == '사진1') {
+      params = '[0]';
+    } else if (selectedImage == '사진2') {
+      params = '[1]';
+    } else if (selectedImage == '사진3') {
+      params = '[2]';
+    } else if (selectedImage == '사진4') {
+      params = '[3]';
+    }
+
+    // Step 1: Prepare the contract action
+    const transaction = {
+      bappName,
+      to: nftAddress,
+      abi: voteAbi,
+      value: '0',
+      params,
+      from: localStorage.getItem('klipAddress'),
+    };
+
+    // Step 2: Request the contract action through Klip
+    const { request_key } = await prepare.executeContract(transaction);
+    // const res = await axios.post(A2P_API_PREPARE_URL, {
+    //   bapp: { name: bappName, },
+    //   transaction,
+    //   type: "execute_contract",
+    // })
+    // const { request_key } = res.data;
+
+    const userAgent = navigator.userAgent;
+    if (/Windows/i.test(userAgent) || /Macintosh/i.test(userAgent)) {
+      const qrURL = `https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
+      // window.open(qrURL, '_blank');
+      setQrValue(qrURL);
+
+      openModal();
+    } else {
+      request(request_key);
+    }
+
+    // Step 3: Poll for the result
+    // const interval = setInterval(() => {
+    //   getResult(request_key, (result) => {
+    //     if (result.err) {
+    //       console.error(result.err);
+    //       clearInterval(interval);
+    //       return;
+    //     }
+    //     if (result.result) {
+    //       clearInterval(interval);
+    //     }
+    //   });
+    // }, 1000);
   };
 
   return (
@@ -98,9 +172,19 @@ function Governanace() {
                     <option value='사진3'>사진3</option>
                     <option value='사진4'>사진4</option>
                   </select>
-                  <button className='gov-image-select-button'>
+                  <button className='gov-image-select-button' onClick={voteImage}>
                     <div className='gov-image-select-text'>투표</div>
                   </button>
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    className="modal-content"
+                    overlayClassName="modal-overlay"
+                    contentLabel="QR Code Modal"
+                  >
+                    <div className='membership-body-text'>QR 코드를 스캔하세요</div>
+                    <QRCode value={qrValue} size={256} />
+                  </Modal>
                 </div>
               </div>
             ) : (
