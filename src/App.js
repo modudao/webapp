@@ -10,9 +10,9 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Faucet />} />
-        <Route path="/nft" element={<Membership />} />
-        <Route path="/vote" element={<Governanace />} />
+        <Route path="/webapp" element={<Faucet />} />
+        <Route path="/webapp/nft" element={<Membership />} />
+        <Route path="/webapp/vote" element={<Governanace />} />
       </Routes>
     </Router>
   );

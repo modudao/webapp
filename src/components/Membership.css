@@ -47,6 +47,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 
   border-color: transparent;
   border-radius: 12px;
@@ -103,4 +104,23 @@
   flex-wrap: wrap;
   width: 341px;
   gap: 4px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 12px 24px 24px 24px;
+  border-radius: 12px;
 }
