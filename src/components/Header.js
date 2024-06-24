@@ -55,14 +55,14 @@ const Header = () => {
         <div className='modu-menu-text-wrapper'>
           <Link
             to="/webapp/nft"
-            className={`modu-logo-text1 ${location.pathname === '/nft' ? 'active-link' : ''}`}
+            className={`modu-logo-text1 ${location.pathname === '/webapp/nft' ? 'active-link' : ''}`}
             style={{ textDecoration: 'none' }}
           >
             맴버십
           </Link>
           <Link
             to="/webapp/vote"
-            className={`modu-logo-text2 ${location.pathname === '/vote' ? 'active-link' : ''}`}
+            className={`modu-logo-text2 ${location.pathname === '/webapp/vote' ? 'active-link' : ''}`}
             style={{ textDecoration: 'none' }}
           >
             투표
