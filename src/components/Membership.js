@@ -175,7 +175,7 @@ function Membership() {
       ) : (
         <div className='membership-body-wrapper'>
           <div className='membership-body-text'>맴버가 되신걸 환영합니다</div>
-          <div className='membership-body-text-sub-success'>총 {memberMetadata.length} 명의 맴버가 함께하고 있습니다! 거버넌스 페이지에서 투표를 진행해보세요!</div>
+          <div className='membership-body-text-sub-success'>총 <span style={{ fontWeight: 'bold' }}>{memberMetadata.length}</span> 명의 맴버가 함께하고 있습니다! 거버넌스 페이지에서 투표를 진행해보세요!</div>
           <div className='membership-member-body'>
             {/*  */}
             {memberMetadata.map((member, index) => (
