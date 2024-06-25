@@ -27,7 +27,7 @@ function Governanace() {
   const [joinRate, setJoinRate] = useState(0);
   const [winnerAmount, setWinnerAmount] = useState(0);
 
-  // const nftAddress = "0x8aDfAA9C3ACaE1E519661C15aA1c05727b0387D2";
+  const nftAddress = "0x8aDfAA9C3ACaE1E519661C15aA1c05727b0387D2";
   const voteAbi = '{"inputs": [{"internalType": "uint256","name": "option","type": "uint256"}],"name": "vote","outputs": [],"stateMutability": "nonpayable","type": "function"}';
   const joinAbi = '{"inputs": [],"name": "join","outputs": [],"stateMutability": "nonpayable","type": "function"}';
   const nftAbi = [{
