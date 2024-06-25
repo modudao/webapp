@@ -13,7 +13,7 @@ function Membership() {
   const [isMembership, setIsMembership] = useState(false);
   const [memberMetadata, setMemberMetadata] = useState([]);
 
-  const nftAddress = "0xb065C2E339Ec555aA03EA5695939708673A9bb15";
+  const nftAddress = "0x8aDfAA9C3ACaE1E519661C15aA1c05727b0387D2";
   const mintAbi = '{"constant":false,"inputs":[],"name":"mint","outputs":[],"payable":true,"stateMutability":"payable","type":"function"}';
   const nftAbi = [{
     "inputs": [],
@@ -66,6 +66,7 @@ function Membership() {
 
   useEffect(() => {
     const provider = new ethers.JsonRpcProvider("https://public-en-cypress.klaytn.net");
+    // const provider = new ethers.JsonRpcProvider("https://klaytn.drpc.org");
     const nftContract = new ethers.Contract(nftAddress, nftAbi, provider);
 
     const checkMembershipStatus = async () => {
@@ -89,6 +90,7 @@ function Membership() {
     };
 
     // 10초마다 갱신
+    checkMembershipStatus();
     const intervalId = setInterval(checkMembershipStatus, 10000);
 
     return () => clearInterval(intervalId);

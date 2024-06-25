@@ -27,7 +27,7 @@ function Governanace() {
   const [joinRate, setJoinRate] = useState(0);
   const [winnerAmount, setWinnerAmount] = useState(0);
 
-  const nftAddress = "0xb065C2E339Ec555aA03EA5695939708673A9bb15";
+  // const nftAddress = "0x8aDfAA9C3ACaE1E519661C15aA1c05727b0387D2";
   const voteAbi = '{"inputs": [{"internalType": "uint256","name": "option","type": "uint256"}],"name": "vote","outputs": [],"stateMutability": "nonpayable","type": "function"}';
   const joinAbi = '{"inputs": [],"name": "join","outputs": [],"stateMutability": "nonpayable","type": "function"}';
   const nftAbi = [{
@@ -121,6 +121,7 @@ function Governanace() {
 
   useEffect(() => {
     const provider = new ethers.JsonRpcProvider("https://public-en-cypress.klaytn.net");
+    // const provider = new ethers.JsonRpcProvider("https://klaytn.drpc.org");
     const nftContract = new ethers.Contract(nftAddress, nftAbi, provider);
 
     setSelectedImage(selectedImage);
