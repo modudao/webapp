@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/webapp/static/css/main.6d019f29.css",
-    "main.js": "/webapp/static/js/main.05b5319b.js",
+    "main.js": "/webapp/static/js/main.ced16a48.js",
     "static/js/453.8566eefc.chunk.js": "/webapp/static/js/453.8566eefc.chunk.js",
     "static/media/daolabnft4.png": "/webapp/static/media/daolabnft4.a87630f3b0a76b019a32.png",
     "static/media/daolabnft3.png": "/webapp/static/media/daolabnft3.a3b8b8e918fcbcffc53b.png",
@@ -10,11 +10,11 @@
     "static/media/daolabnft.png": "/webapp/static/media/daolabnft.e465b07420a6dbda9921.png",
     "index.html": "/webapp/index.html",
     "main.6d019f29.css.map": "/webapp/static/css/main.6d019f29.css.map",
-    "main.05b5319b.js.map": "/webapp/static/js/main.05b5319b.js.map",
+    "main.ced16a48.js.map": "/webapp/static/js/main.ced16a48.js.map",
     "453.8566eefc.chunk.js.map": "/webapp/static/js/453.8566eefc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6d019f29.css",
-    "static/js/main.05b5319b.js"
+    "static/js/main.ced16a48.js"
   ]
 }
